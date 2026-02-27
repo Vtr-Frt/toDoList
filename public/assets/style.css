@@ -1,0 +1,44 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+}
+
+
+.banniere {
+    background-color: darkblue;
+    width: 100%;
+    padding: 1%;
+}
+
+.banniere h1{
+    color: whitesmoke;
+}
+
+.banniere a{
+    color: greenyellow;
+}
+
+.banniere a:active{
+    color: green;
+}
+
+.banniere a:visited{
+    color: white;
+}
+
+.connexion {
+    padding-left: 45%;
+    padding-top: 15%;
+}
+
+.connexion form {
+    background-color: darkblue;
+    border-radius: 15px;
+    border: 5px solid greenyellow;
+    width: 25%;
+
+}
+
+.connexion form label {
+    color: whitesmoke;
+}
