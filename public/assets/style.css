@@ -1,0 +1,19 @@
+.banniere {
+    background-color: darkblue;
+}
+
+.banniere h1{
+    color: whitesmoke;
+}
+
+.banniere a{
+    color: greenyellow;
+}
+
+.banniere a:active{
+    color: green;
+}
+
+.banniere a:visited{
+    color: white;
+}

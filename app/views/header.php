@@ -5,4 +5,10 @@
         <meta charset="UTF-8">
     </head>
     <body>
-    ok
+    <div class="banniere">
+        <h1>To Do List</h1>
+        <nav>
+            <a href="public/index.php?action=connexion">Connexion</a>
+            <a href="public/index.php?action=inscrire">Inscrire</a>
+        </nav>  
+    </div>
