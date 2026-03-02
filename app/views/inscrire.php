@@ -1,9 +1,11 @@
-<div class="connexion">
-    <form action="login" method="POST">
+<?= require_once __DIR__ . '../controllers/auth.php'; ?>
+
+<div class="inscrire">
+    <form action="" method="POST">
         <label for="email">E-mail :</label>
         <input type="email" name="email">
         <label for="password">Mot de Passe :</label>
         <input type="password" name="password">
-        <button type="submite">Connexion</button>
+        <button type="submite">Inscrire</button>
     </form>
 </div>

@@ -24,4 +24,21 @@ class User {
         return new User($data['id'], $data['email'], $data['password']);
 
     }
+
+    public function verifyPassword(string $password): ?bool{
+        $db = db();
+
+        $stmt = $db->prepare('SELECT * FROM user WHERE email=? and password=?;');
+        $stmt->execute([$this->email, $password]);
+        $data = $stmt->fetch();
+
+        if (!$data) return null;
+
+        return true;
+    }
+
+    public function login(){
+        $_SESSION['userId'] = $this->id;
+        $_SESSION['email'] = $this->email;
+    }
 }
