@@ -2,12 +2,17 @@
 
 session_start();
 
+require __DIR__ . '/../app/controllers/auth.php';
+
 require __DIR__ . '/../app/views/header.php';
 
 if(isset($_GET['action']))
     switch($_GET['action']){
         case 'connexion':
-            require __DIR__ . '/../app/views/connexion.php';
+            login();
+            break;
+        case 'register':
+            register();
             break;
 } else {
     require __DIR__ . '/../app/views/home.php';

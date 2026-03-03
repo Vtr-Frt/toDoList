@@ -10,6 +10,6 @@
         <nav>
             <a href="index.php">Home</a>
             <a href="index.php?action=connexion">Connexion</a>
-            <a href="index.php?action=inscrire">Inscrire</a>
+            <a href="index.php?action=register">Inscrire</a>
         </nav>  
     </div>
