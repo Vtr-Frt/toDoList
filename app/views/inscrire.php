@@ -1,7 +1,5 @@
-<?= require_once __DIR__ . '../controllers/auth.php'; ?>
-
 <div class="inscrire">
-    <form action="" method="POST">
+    <form action="index.php?action=register" method="POST">
         <label for="email">E-mail :</label>
         <input type="email" name="email">
         <label for="password">Mot de Passe :</label>
