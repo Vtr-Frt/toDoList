@@ -12,8 +12,7 @@ class User {
     }
 
 
-    public static function findByEmail(string $email): ?User{
-        $db = db();
+    public static function findByEmail(PDO $db, string $email): ?User{
 
         $stmt = $db->prepare('SELECT * FROM user WHERE email = ?');
         $stmt->execute([$email]);
@@ -25,15 +24,14 @@ class User {
 
     }
     
-    public static function insertUser(string $email, string $password){
-        $db = db();
+    public static function insertUser(PDO $db, string $email, string $password){
         
         $stmt = $db->prepare('INSERT INTO USER (email, password) VALUES (?, ?);');
         $stmt->execute([$email, hash(algo: 'sha256', data:$password)]);
     }
 
 
-    public function verifyPassword(string $password): ?bool{
+    public function verifyPassword(PDO $db, string $password): ?bool{
         $db = db();
 
         $stmt = $db->prepare('SELECT * FROM user WHERE email=? and password=?;');
