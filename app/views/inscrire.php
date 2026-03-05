@@ -8,7 +8,7 @@
     </div>
     <div class="form-group">
         <label for="password">Mot de Passe :</label>
-        <input type="password" name="password">
+        <input type="password" name="password" minlength="4">
     </div>
     <button type="submite" class="btn">Inscrire</button>
 </form>
