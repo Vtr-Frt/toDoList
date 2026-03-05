@@ -17,6 +17,9 @@ if(isset($_GET['action']))
         case 'register':
             register();
             break;
+        case 'disconnect':
+            logout();
+            break;
 } else {
     require __DIR__ . '/../app/views/home.php';
 }

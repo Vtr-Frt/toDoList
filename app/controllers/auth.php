@@ -10,6 +10,8 @@ function login(): void{
 
         if($email && $user !== null && $user->verifyPassword($db, $password) !== null){
             $user->login_user();
+            header('Location: index.php');
+            exit();
             
         } else {
             flash("Information de connexion erronées", 'error');
@@ -20,6 +22,12 @@ function login(): void{
     require __DIR__ . '/../views/connexion.php';
     exit();
     
+}
+
+function logout(): void{
+    User::logoutUser();
+    header('Location: index.php');
+    exit();
 }
 
 function register(): void{
