@@ -18,3 +18,9 @@
             </div>
         </aside>
         <main class="main-content">
+            <?php $flash = get_flash(); ?>
+            <?php if ($flash): ?>
+                <div class="alert <?= htmlspecialchars($flash['type']) ?>">
+                    <?= htmlspecialchars($flash['message']) ?>
+                </div>
+            <?php endif; ?>

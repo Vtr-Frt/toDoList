@@ -2,7 +2,10 @@
 
 session_start();
 
+require __DIR__ . '/../app/models/User.php';
+
 require __DIR__ . '/../app/controllers/auth.php';
+require __DIR__ . '/../app/helper.php';
 
 require __DIR__ . '/../app/views/header.php';
 
