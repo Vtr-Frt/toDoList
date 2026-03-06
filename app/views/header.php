@@ -14,6 +14,7 @@
                     <a href="index.php" class="nav-link">Home</a>
                     <a href="index.php?action=displayTask" class="nav-link">Taches Disponibles</a>
                     <a href="index.php?action=addTask" class="nav-link">Ajout tache</a>
+                    <a href="index.php?action=showHistorique" class="nav-link">Historique</a>
                     <a href="index.php?action=disconnect" class="nav-link">Déconnexion</a>
                 <?php else: ?>
                     <a href="index.php" class="nav-link">Home</a>

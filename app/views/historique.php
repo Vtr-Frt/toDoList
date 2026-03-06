@@ -1,11 +1,10 @@
-<h2>Taches disponibles : </h2>
+<h2>Historique des taches accomplient : </h2>
 <div class="grid">
 <?php foreach ($tasks as $t): ?>
   <div class="card">
     <h3><?= htmlspecialchars($t->getTitle()) ?></h3>
-    <p><strong><?= htmlspecialchars($t->getDateLimite()) ?></strong></p>
+    <p><strong>Fait le <?= htmlspecialchars($t->getDateDone()) ?></strong></p>
     <sub><?= htmlspecialchars($t->getDescription()) ?></sub>
-    <a class="btn" href="index.php?action=taskDone&id=<?= (int)$t->getId() ?>">Fait</a>
   </div>
 <?php endforeach; ?>
 </div>

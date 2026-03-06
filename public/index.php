@@ -28,8 +28,17 @@ if(isset($_GET['action']))
         case 'addTask':
             processAjoutTask();
             break;
+        case 'taskDone':
+            taskComplete();
+            break;
+        case 'showHistorique':
+            showHistorique();
+            break;
         case 'disconnect':
             logout();
+            break;
+        default:
+            require __DIR__ . '/../app/views/home.php';
             break;
 } else {
     require __DIR__ . '/../app/views/home.php';

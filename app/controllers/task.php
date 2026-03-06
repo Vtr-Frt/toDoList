@@ -23,3 +23,17 @@ function showTasks(){
     require __DIR__ . '/../views/displayTasks.php';
     exit();
 }
+
+function taskComplete(){
+    $db = db();
+    $task = Task::findById($db, $_GET['id']);
+    $task->completTask($db);
+    showTasks();
+}
+
+function showHistorique(){
+    $db = db();
+    $tasks = Task::taskUserDone($db);
+    require __DIR__ . '/../views/historique.php';
+    exit();
+}
