@@ -1,5 +1,4 @@
 <?php 
-require __DIR__ . '/../db.php';
 class User {
     private ?int $id;
     private string $email;
@@ -28,7 +27,7 @@ class User {
 
     }
     
-    public static function insertUser(PDO $db, string $email, string $password){
+    public static function insertUser(PDO $db, string $email, string $password): void{
         
         $stmt = $db->prepare('INSERT INTO USER (email, password) VALUES (?, ?);');
         $stmt->execute([$email, hash(algo: 'sha256', data:$password)]);

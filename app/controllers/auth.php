@@ -8,7 +8,7 @@ function login(): void{
 
         $user = User::findByEmail($db, $email);
 
-        if($email && $user !== null && $user->verifyPassword($db, $password) !== null){
+        if($email && $user !== null && $user->verifyPassword($db, $password) !== null) {
             $user->login_user();
             header('Location: index.php');
             exit();
@@ -21,7 +21,6 @@ function login(): void{
     }
     require __DIR__ . '/../views/connexion.php';
     exit();
-    
 }
 
 function logout(): void{

@@ -1,8 +1,5 @@
 <?php
 
-require_once __DIR__ . '/config.php';
-
-
 function db($useDbName = true): PDO {
   static $pdo = [];
   $key = $useDbName ? 'withdb' : 'nodb';
