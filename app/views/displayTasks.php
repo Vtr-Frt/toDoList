@@ -1,3 +1,4 @@
+<h2>Taches disponibles : </h2>
 <div class="grid">
 <?php foreach ($tasks as $t): ?>
   <div class="card">

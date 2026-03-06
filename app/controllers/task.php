@@ -19,7 +19,7 @@ function processAjoutTask(): void{
 
 function showTasks(){
     $db = db();
-    $tasks = Task::all($db);
+    $tasks = Task::taskUser($db);
     require __DIR__ . '/../views/displayTasks.php';
     exit();
 }
