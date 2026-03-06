@@ -22,6 +22,9 @@ if(isset($_GET['action']))
         case 'register':
             register();
             break;
+        case 'displayTask':
+            showTasks();
+            break;
         case 'addTask':
             processAjoutTask();
             break;

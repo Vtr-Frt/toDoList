@@ -7,10 +7,10 @@
     --accent:       #90f50b;
     --accent-dk:    #8fd906;
     --bg:           #363636;
-    --card-bg:      #ffffff;
+    --card-bg:      #000000;
     --text:         #ffffff;
-    --muted:        #7c7069;
-    --border:       #e8e0d5;
+    --muted:        #b2ff85;
+    --border:       #90f50b;
     --radius:       10px;
     --shadow:       0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
 }
@@ -152,6 +152,7 @@ h3 { font-size: 1.15rem; font-weight: 700; margin: 2rem 0 1rem; }
 .card h3 { padding: .8rem 1rem .2rem; font-size: 1rem; font-weight: 700; margin: 0; }
 .card p { padding: .1rem 1rem; font-size: .85rem; color: var(--muted); }
 .card .btn { margin: .75rem 1rem 1rem; align-self: flex-start; }
+.card sub {padding: .1rem 1rem; font-size: .85rem; color: var(--text);}
 
 /* Pet detail */
 .pet-detail { max-width: 520px; }
