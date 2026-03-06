@@ -1,47 +1,56 @@
 <?php
-require __DIR__ . '/../models/User.php';
 
 function login(): void{
-    $error = null;
-
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $db = db();
         $email = trim($_POST['email'] ?? '');
         $password = trim($_POST['password'] ?? '');
 
-        $user = User::findByEmail($email);
+        $user = User::findByEmail($db, $email);
 
-        if($email && $user->verifyPassword($password)){
+        if($email && $user !== null && $user->verifyPassword($db, $password) !== null) {
             $user->login_user();
+            header('Location: index.php');
+            exit();
+            
+        } else {
+            flash("Information de connexion erronées", 'error');
+            header('Location: index.php?action=connexion');
+            exit();
         }
-    } else {
-        require __DIR__ . '/../views/connexion.php';
     }
-    
+    require __DIR__ . '/../views/connexion.php';
+    exit();
+}
+
+function logout(): void{
+    User::logoutUser();
+    header('Location: index.php');
+    exit();
 }
 
 function register(): void{
-    $error = null;
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $db = db();
         $email = trim($_POST['email'] ?? '');
         $password = trim($_POST['password'] ?? '');
 
-        $check = User::findByEmail($email);
+        $check = User::findByEmail($db, $email);
 
         //Check if the email is already registred
-        if(is_null($check)){
-            $db = db();
-
-            User::insertUser($email, $password);
-
+        if($check === null){
+            User::insertUser($db, $email, $password);
+            flash("Compte enregistré");
             require __DIR__ . '/../views/connexion.php';
-        } else {
-            $error = "Email already registred";
-            require __DIR__ . '/../views/connexion.php';
+            exit();
         }
-    } else {
-        require __DIR__ . '/../views/inscrire.php';
+        //Affiche message erreur si email déjà enregistré
+        flash("Email déjà enregistré", 'error');
+        header('Location: index.php?action=register');
+        exit();
     }
     
+    require __DIR__ . '/../views/inscrire.php';
+    exit();
 }
-

@@ -1,6 +1,6 @@
 <?php
 
-define('APP_NAME', 'To Do Liste');
+define('APP_NAME', 'To Do List');
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'to_do_list');

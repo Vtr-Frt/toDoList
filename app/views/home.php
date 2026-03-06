@@ -1,3 +1,3 @@
-<p>
-    bienvenue sur to do list
-</p>
+<h2>
+    Bienvenue sur <?= htmlspecialchars(APP_NAME) ?>
+</h2>

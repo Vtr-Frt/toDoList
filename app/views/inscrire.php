@@ -1,9 +1,14 @@
-<div class="inscrire">
-    <form action="index.php?action=register" method="POST">
+<h2>Inscription</h2>
+
+
+<form action="index.php?action=register" method="POST">
+    <div class="form-group">
         <label for="email">E-mail :</label>
-        <input type="email" name="email">
+        <input type="email" id="email" name="email">
+    </div>
+    <div class="form-group">
         <label for="password">Mot de Passe :</label>
-        <input type="password" name="password">
-        <button type="submite">Inscrire</button>
-    </form>
-</div>
+        <input type="password" id="password" name="password" minlength="4">
+    </div>
+    <button type="submite" class="btn">Inscrire</button>
+</form>
