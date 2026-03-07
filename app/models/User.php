@@ -16,6 +16,7 @@ class User {
     public function getId(){return $this->id;}
     public function getEmail(): string{return $this->email;}
     public function getUsername(): string{return $this->username;}
+    public function getPassword(): string{return $this->password_hash;}
 
 
     public static function findByEmail(PDO $db, string $email): ?User{
@@ -33,7 +34,7 @@ class User {
     public static function insertUser(PDO $db, string $email, string $username,string $password): void{
         
         $stmt = $db->prepare('INSERT INTO USER (email, username, password) VALUES (?, ?, ?);');
-        $stmt->execute([$email, $username, hash(algo: 'sha256', data:$password)]);
+        $stmt->execute([$email, $username, password_hash($password, PASSWORD_BCRYPT)]);
     }
 
     public static function logoutUser(){
@@ -53,7 +54,7 @@ class User {
         return true;
     }
 
-    public function login_user(): void{
+    public function loginUser(): void{
         $_SESSION['userId'] = $this->getId();
         $_SESSION['email'] = $this->getEmail();
         $_SESSION['username'] = $this->getUsername();

@@ -8,8 +8,8 @@ function login(): void{
 
         $user = User::findByEmail($db, $email);
 
-        if($email && $user !== null && $user->verifyPassword($db, $password) !== null) {
-            $user->login_user();
+        if($email && $user !== null && password_verify($password, $user->getPassword())) {
+            $user->loginUser();
             header('Location: index.php');
             exit();
             

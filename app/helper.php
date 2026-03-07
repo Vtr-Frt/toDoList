@@ -10,3 +10,10 @@ function get_flash(): ?array {
     unset($_SESSION['flash']);
     return $f;
 }
+
+function requireAuth(): void {
+    if (!isset($_SESSION['userId'])) {
+        header('Location: index.php?action=connexion');
+        exit();
+    }
+}
