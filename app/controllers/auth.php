@@ -34,15 +34,16 @@ function register(): void{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $db = db();
         $email = trim($_POST['email'] ?? '');
+        $username = trim($_POST['username'] ?? '');
         $password = trim($_POST['password'] ?? '');
 
         $check = User::findByEmail($db, $email);
 
         //Check if the email is already registred
         if($check === null){
-            User::insertUser($db, $email, $password);
+            User::insertUser($db, $email, $username,$password);
             flash("Compte enregistré");
-            require __DIR__ . '/../views/connexion.php';
+            header('Location: index.php?action=register');
             exit();
         }
         //Affiche message erreur si email déjà enregistré

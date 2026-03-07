@@ -7,6 +7,10 @@
         <input type="email" id="email" name="email">
     </div>
     <div class="form-group">
+        <label for="username">Pseudo :</label>
+        <input type="text" id="username" name="username" minlength="2">
+    </div>
+    <div class="form-group">
         <label for="password">Mot de Passe :</label>
         <input type="password" id="password" name="password" minlength="4">
     </div>

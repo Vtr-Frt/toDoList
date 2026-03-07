@@ -17,3 +17,37 @@ function processAjoutTask(): void{
     
 }
 
+function deleteTask(): void{
+    if($_SERVER['REQUEST_METHOD'] === 'GET'){
+        $db = db();
+        Task::cancelTask($db, $_GET['id']);
+        flash("Tache annulée");
+        header('Location: index.php?action=cancelTask');
+        exit();
+    }
+    require __DIR__ . '/../views/displayTasks.php';
+    exit();
+
+}
+
+function showTasks(){
+    $db = db();
+    $tasks = Task::all($db);
+    //$tasks = Task::taskUser($db);
+    require __DIR__ . '/../views/displayTasks.php';
+    exit();
+}
+
+function taskComplete(){
+    $db = db();
+    $task = Task::findById($db, $_GET['id']);
+    $task->completTask($db);
+    showTasks();
+}
+
+function showHistorique(){
+    $db = db();
+    $tasks = Task::taskUserDone($db);
+    require __DIR__ . '/../views/historique.php';
+    exit();
+}
