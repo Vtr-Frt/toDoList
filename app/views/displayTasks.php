@@ -6,6 +6,9 @@
     <p><strong><?= htmlspecialchars($t->getDateLimite()) ?></strong></p>
     <sub><?= htmlspecialchars($t->getDescription()) ?></sub>
     <a class="btn" href="index.php?action=taskDone&id=<?= (int)$t->getId() ?>">Fait</a>
+    <?php if($t->getIdProprio() == $_SESSION['userId']): ?>
+    <a class="btn" href="index.php?action=taskCancel&id=<?= (int)$t->getId() ?>">Annuler</a>
+    <?php endif; ?>
   </div>
 <?php endforeach; ?>
 </div>

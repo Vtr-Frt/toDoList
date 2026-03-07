@@ -22,7 +22,7 @@
                     <a href="index.php?action=register" class="nav-link">Inscrire</a>
                 <?php endif ?>
                 
-            </nav>  
+            </nav>
             <div class="sidebar-footer">
                 <p>&copy; <?= date('Y') ?> <?= htmlspecialchars(APP_NAME) ?></p>
             </div>

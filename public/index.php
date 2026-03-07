@@ -31,6 +31,9 @@ if(isset($_GET['action']))
         case 'taskDone':
             taskComplete();
             break;
+        case 'taskCancel':
+            deleteTask();
+            break;
         case 'showHistorique':
             showHistorique();
             break;

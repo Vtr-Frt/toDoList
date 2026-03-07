@@ -102,5 +102,13 @@ class Task {
         $stmt->execute([$_SESSION['userId'], $this->getId()]);
     }
 
+    public function getIdProprio(): int{
+        $db = db();
+        $stmt = $db->prepare('SELECT id_user AS userId FROM user_task WHERE id_task = ?');
+        $stmt->execute([$this->getId()]);
+        $data = $stmt->fetch();
+        return (int)$data['userId'];
+    }
+
     
 }
