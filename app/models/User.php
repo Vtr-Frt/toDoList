@@ -13,13 +13,20 @@ class User {
     }
 
     // Accesseur //
-    public function getId(){return $this->id;}
+    public function getId(): ?int{return $this->id;}
     public function getEmail(): string{return $this->email;}
     public function getUsername(): string{return $this->username;}
+    public function getPassword(): string{return $this->password_hash;}
 
-
+    // Static //
     public static function findByEmail(PDO $db, string $email): ?User{
-
+        /**
+         * Search the informations of a user by his email.
+         * 
+         * @param PDO $db database used
+         * @param string $email user email
+         * @return ?User if not found null else User object with all of the information founds
+         */
         $stmt = $db->prepare('SELECT * FROM user WHERE email = ?');
         $stmt->execute([$email]);
         $data = $stmt->fetch();
@@ -31,29 +38,32 @@ class User {
     }
     
     public static function insertUser(PDO $db, string $email, string $username,string $password): void{
-        
+        /**
+         * Add a new user to the database.
+         * 
+         * @param PDO $db database used
+         * @param string $email new user email
+         * @param string $username new user username
+         * @param string $password user password in plain text
+         */
         $stmt = $db->prepare('INSERT INTO USER (email, username, password) VALUES (?, ?, ?);');
-        $stmt->execute([$email, $username, hash(algo: 'sha256', data:$password)]);
+        $stmt->execute([$email, $username, password_hash($password, PASSWORD_BCRYPT)]);
     }
 
     public static function logoutUser(){
-        unset( $_SESSION['userId']);
-        unset($_SESSION['email']);
+        /**
+         * Disconnect the user
+         * 
+         */
+        session_destroy();
     }
 
-
-    public function verifyPassword(PDO $db, string $password): bool{
-
-        $stmt = $db->prepare('SELECT * FROM user WHERE email=? and password=?;');
-        $stmt->execute([$this->email, hash(algo: 'sha256', data: $password)]);
-        $data = $stmt->fetch();
-
-        if (!$data) return false;
-
-        return true;
-    }
-
-    public function login_user(): void{
+    // Instance //
+    public function loginUser(): void{
+        /**
+         * Connect the user by stocking all of his informations in $_SESSION
+         * 
+         */
         $_SESSION['userId'] = $this->getId();
         $_SESSION['email'] = $this->getEmail();
         $_SESSION['username'] = $this->getUsername();

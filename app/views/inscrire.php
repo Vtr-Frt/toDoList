@@ -14,5 +14,5 @@
         <label for="password">Mot de Passe :</label>
         <input type="password" id="password" name="password" minlength="4">
     </div>
-    <button type="submite" class="btn">Inscrire</button>
+    <button type="submit" class="btn">Inscrire</button>
 </form>
