@@ -1,6 +1,9 @@
 <?php
 
 function processAjoutTask(): void{
+    /**
+     * Add task processus
+     */
     requireAuth();
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $title = trim($_POST['title'] ?? '');
@@ -19,6 +22,9 @@ function processAjoutTask(): void{
 }
 
 function deleteTask(): void{
+    /**
+     * Delete a task processus
+     */
     requireAuth();
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         if(isset($_GET['id']) && is_numeric($_GET['id'])){
@@ -37,16 +43,21 @@ function deleteTask(): void{
 }
 
 function showTasks(){
+    /**
+     * Recover all the tasks to show all the pending tasks of a user properly
+     */
     requireAuth();
     $db = db();
-    Task::expireOverdue($db);
-    //$tasks = Task::all($db);
-    $tasks = Task::taskUser($db);
+    $tasks = Task::taskUser($db, $_SESSION['userId']);
     require __DIR__ . '/../views/displayTasks.php';
     exit();
 }
 
 function taskComplete(){
+    /**
+     * Complete task procesuss
+     */
+    requireAuth();
     $db = db();
     if(isset($_GET['id']) && is_numeric($_GET['id'])){
         $task = Task::findById($db, $_GET['id']);
@@ -57,8 +68,12 @@ function taskComplete(){
 }
 
 function showHistorique(){
+    /**
+     * Recover all the tasks to show the user historique properly
+     */
+    requireAuth();
     $db = db();
-    $tasks = Task::taskUserDone($db);
+    $tasks = Task::taskUserDone($db, $_SESSION['userId']);
     require __DIR__ . '/../views/historique.php';
     exit();
 }

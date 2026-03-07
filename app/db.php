@@ -1,6 +1,12 @@
 <?php
 
 function db($useDbName = true): PDO {
+  /**
+   * Connect to the database.
+   * 
+   * @param bool connection with the anme of the database or not
+   * @return PDO database object
+   */
   static $pdo = [];
   $key = $useDbName ? 'withdb' : 'nodb';
   if (isset($pdo[$key])) return $pdo[$key];

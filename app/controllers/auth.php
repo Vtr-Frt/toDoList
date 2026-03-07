@@ -1,6 +1,9 @@
 <?php
 
 function login(): void{
+    /**
+     * Login user processus
+     */
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $db = db();
         $email = trim($_POST['email'] ?? '');
@@ -9,6 +12,7 @@ function login(): void{
         $user = User::findByEmail($db, $email);
 
         if($email && $user !== null && password_verify($password, $user->getPassword())) {
+            Task::expireOverdue($db);
             $user->loginUser();
             header('Location: index.php');
             exit();
@@ -24,12 +28,18 @@ function login(): void{
 }
 
 function logout(): void{
+    /**
+     * Logout user processus
+     */
     User::logoutUser();
     header('Location: index.php');
     exit();
 }
 
 function register(): void{
+    /**
+     * Adding a new user processus
+     */
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $db = db();

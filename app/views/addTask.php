@@ -13,5 +13,5 @@
         <label for="dateLimite">Date Limite :</label>
         <input type="date" id="dateLimite" name="dateLimite" min="<?= date('Y-m-d') ?>">
     </div>
-    <button type="submite" class="btn">Ajouter</button>
+    <button type="submit" class="btn">Ajouter</button>
 </form>

@@ -8,5 +8,5 @@
         <label for="password">Mot de Passe :</label>
         <input type="password" id="password" name="password">
     </div>
-    <button type="submite" class="btn">Connexion</button>
+    <button type="submit" class="btn">Connexion</button>
 </form>

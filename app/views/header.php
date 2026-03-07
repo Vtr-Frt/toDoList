@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <link href="assets/style.css" rel="stylesheet">
