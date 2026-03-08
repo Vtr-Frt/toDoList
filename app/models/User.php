@@ -19,6 +19,32 @@ class User {
     public function getPassword(): string{return $this->password_hash;}
 
     // Static //
+    public static function getProfilPicture(PDO $db, int $userId): string{
+        /**
+         * Get the user profil pictur
+         * 
+         * @param PDO $db database used
+         * @param int $userId user ID
+         * @return string encode data of the profil picture
+         */
+        $stmt = $db->prepare('SELECT profile_picture FROM user WHERE id = ?');
+        $stmt->execute([$userId]);
+        $data = $stmt->fetch();
+        return base64_encode($data['profile_picture']);
+    }
+
+    public static function setProfilPicture(PDO $db,string $picture, int $userId): void{
+        /**
+         * Set user a new profil picture
+         * 
+         * @param PDO $db database used
+         * @param mixed $picture new profil picture
+         * @param int $userId user ID
+         */
+        $stmt = $db->prepare('UPDATE user SET profile_picture = ? WHERE id = ? ;');
+        $stmt->execute([$picture, $userId]);
+    }
+
     public static function findByEmail(PDO $db, string $email): ?User{
         /**
          * Search the informations of a user by his email.

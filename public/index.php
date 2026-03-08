@@ -22,6 +22,9 @@ if(isset($_GET['action']))
         case 'register':
             register();
             break;
+        case 'showProfil':
+            //TODO: ajouter controller
+            break;
         case 'displayTask':
             showTasks();
             break;
