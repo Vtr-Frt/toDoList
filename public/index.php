@@ -10,6 +10,7 @@ require __DIR__ . '/../app/models/Task.php';
 
 require __DIR__ . '/../app/controllers/auth.php';
 require __DIR__ . '/../app/controllers/task.php';
+require __DIR__ . '/../app/controllers/user.php';
 require __DIR__ . '/../app/helper.php';
 
 require __DIR__ . '/../app/views/header.php';
@@ -23,7 +24,10 @@ if(isset($_GET['action']))
             register();
             break;
         case 'showProfil':
-            //TODO: ajouter controller
+            showProfile();
+            break;
+        case 'updateProfil':
+            updateProfile();
             break;
         case 'displayTask':
             showTasks();

@@ -1,19 +1,22 @@
 <?php 
 class User {
     private ?int $id;
+    private ?int $groupeId;
     private string $email;
     private string $username;
     private string $password_hash;
     
-    public function __construct(?int $id, string $email, string $username ,string $password_hash){   
+    public function __construct(?int $id, string $email, string $username , string $password_hash, ?int $groupeId = null){   
         $this->id = $id;
         $this->email = $email;
         $this->username = $username;
         $this->password_hash = $password_hash;
+        $this->groupeId = $groupeId;
     }
 
     // Accesseur //
     public function getId(): ?int{return $this->id;}
+    public function getGroupId(): ?int{return $this->groupeId;}
     public function getEmail(): string{return $this->email;}
     public function getUsername(): string{return $this->username;}
     public function getPassword(): string{return $this->password_hash;}
@@ -59,7 +62,7 @@ class User {
 
         if (!$data) return null;
 
-        return new User($data['id'], $data['email'], $data['username'],$data['password']);
+        return new User($data['id'], $data['email'], $data['username'],$data['password'], $data['group_id']);
 
     }
     
@@ -93,5 +96,6 @@ class User {
         $_SESSION['userId'] = $this->getId();
         $_SESSION['email'] = $this->getEmail();
         $_SESSION['username'] = $this->getUsername();
+        $_SESSION['groupeId'] = $this->getGroupId();
     }
 }
