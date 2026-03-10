@@ -8,7 +8,7 @@
 <form action="index.php?action=updatePassword" method="POST">
     <div class="form-group">
         <label for="newPassword">Changer mot de passe :</label>
-        <input type="password" id="newPassword" name="newPassword">
+        <input type="password" id="newPassword" name="newPassword" minlength="4">
         <button class="btn" type="submit" >Modifier</button>
     </div>
 </form>

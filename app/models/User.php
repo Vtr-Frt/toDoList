@@ -76,6 +76,33 @@ class User {
         session_destroy();
     }
 
+    public static function updatePseudo(PDO $db, string $pseudo, int $userId){
+        $stmt = $db->prepare("UPDATE user SET username = ? WHERE id = ? ;");
+        $stmt->execute([$pseudo, $userId]);
+    }
+
+    public static function updatePassword(PDO $db, string $password, int $userId){
+        $stmt = $db->prepare("UPDATE user SET password = ? WHERE id = ? ;");
+        $stmt->execute([password_hash($password), $userId]);
+    }
+
+    public static function joinGroup(PDO $db, int $groupId ,int $userId){
+        $stmt = $db->prepare("UPDATE user SET group_id = ? WHERE id = ? ;");
+        $stmt->execute([$groupId, $userId]);
+    }
+
+    public static function checkGroup(PDO $db, int $groupId){
+        $stmt = $db->prepare("SELECT * FROM groupe WHERE id = ? ; ");
+        $stmt->execute([$groupId]);
+        $data = $stmt->fetch();
+        return sizeof($data) > 0;
+    }
+
+    public static function quitGroup(PDO $db, int $userid){
+        $stmt = $db->prepare("UPDATE user SET group_id = NULL WHERE id = ? ;");
+        $stmt->execute([$userid]);
+    }
+
     // Instance //
     public function loginUser(): void{
         /**
