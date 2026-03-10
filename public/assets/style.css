@@ -216,3 +216,12 @@ h3 { font-size: 1.15rem; font-weight: 700; margin: 2rem 0 1rem; }
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(245, 158, 11, .15);
 }
+
+/* ── Image ──────────────────────────────────────────── */
+
+.icon {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;    
+    border-radius: 50%;
+}

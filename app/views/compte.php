@@ -1,7 +1,9 @@
 <h1>Compte</h1>
 
-<img src="uploads/avatars/<?= htmlspecialchars(User::getProfilPicture($db, $_SESSION['userId'])) ?>" alt="Image de profil">
+<img class="icon" src="<?= htmlspecialchars($_SESSION['profilPicture'])?>" alt="Image de profil">
 
-<h2><?=  $_SESSION['username'] ?></h2>
-<p>Id groupe : <?= $_SESSION['groupId'] ?></p>
+<h2><?= htmlspecialchars($_SESSION['username']) ?></h2>
+<?php if(isset($_SESSION['groupId'])): ?>
+<p>Id groupe : <?= $_SESSION['groupId']; ?></p>
+<?php endif; ?>
 <a class="btn" href="index.php?action=updateProfil">Modifier profil</a>

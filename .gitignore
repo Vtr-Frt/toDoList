@@ -1,5 +1,5 @@
 # Images uploadées par les utilisateurs
-public/uploads/*
+public/uploads/avatars/*
 !public/uploads/avatars/.gitkeep
 
 # Variables d'environnement (credentials BDD)

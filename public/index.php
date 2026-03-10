@@ -29,6 +29,21 @@ if(isset($_GET['action']))
         case 'updateProfil':
             updateProfile();
             break;
+        case 'updatePseudo':
+            updatePseudo();
+            break;
+        case 'updatePassword':
+            updatePassword();
+            break;
+        case 'updatePP':
+            updatePP();
+            break;
+        case 'joinGroup':
+            joinGroup();
+            break;
+        case 'quitGroup':
+            quitGroup();
+            break;
         case 'displayTask':
             showTasks();
             break;

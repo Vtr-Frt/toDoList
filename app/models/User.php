@@ -5,13 +5,15 @@ class User {
     private string $email;
     private string $username;
     private string $password_hash;
+    private string $profilPicture;
     
-    public function __construct(?int $id, string $email, string $username , string $password_hash, ?int $groupeId = null){   
+    public function __construct(?int $id, string $email, string $username , string $password_hash, ?int $groupeId = null, string $profilPicture){   
         $this->id = $id;
         $this->email = $email;
         $this->username = $username;
         $this->password_hash = $password_hash;
         $this->groupeId = $groupeId;
+        $this->profilPicture = $profilPicture;
     }
 
     // Accesseur //
@@ -20,22 +22,9 @@ class User {
     public function getEmail(): string{return $this->email;}
     public function getUsername(): string{return $this->username;}
     public function getPassword(): string{return $this->password_hash;}
+    public function getProfilPictur(): string{return $this->profilPicture;}
 
     // Static //
-    public static function getProfilPicture(PDO $db, int $userId): string{
-        /**
-         * Get the user profil pictur
-         * 
-         * @param PDO $db database used
-         * @param int $userId user ID
-         * @return string encode data of the profil picture
-         */
-        $stmt = $db->prepare('SELECT profile_picture FROM user WHERE id = ?');
-        $stmt->execute([$userId]);
-        $data = $stmt->fetch();
-        return base64_encode($data['profile_picture']);
-    }
-
     public static function setProfilPicture(PDO $db,string $picture, int $userId): void{
         /**
          * Set user a new profil picture
@@ -62,7 +51,7 @@ class User {
 
         if (!$data) return null;
 
-        return new User($data['id'], $data['email'], $data['username'],$data['password'], $data['group_id']);
+        return new User($data['id'], $data['email'], $data['username'],$data['password'], $data['group_id'], $data['profile_picture']);
 
     }
     
@@ -96,6 +85,7 @@ class User {
         $_SESSION['userId'] = $this->getId();
         $_SESSION['email'] = $this->getEmail();
         $_SESSION['username'] = $this->getUsername();
-        $_SESSION['groupeId'] = $this->getGroupId();
+        $_SESSION['groupId'] = $this->getGroupId();
+        $_SESSION['profilPicture'] = $this->getProfilPictur();
     }
 }
