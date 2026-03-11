@@ -7,7 +7,7 @@ class User {
     private string $password_hash;
     private string $profilPicture;
     
-    public function __construct(?int $id, string $email, string $username , string $password_hash, ?int $groupeId = null, string $profilPicture){   
+    public function __construct(?int $id, string $email, string $username , string $password_hash, ?int $groupeId = null, ?string $profilPicture='uploads/avatars/default.png'){   
         $this->id = $id;
         $this->email = $email;
         $this->username = $username;

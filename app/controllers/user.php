@@ -6,13 +6,11 @@ function showProfile(){
     exit();
 }
 
-
 function updateProfile(){
     requireAuth();
     require __DIR__ . '/../views/compteChange.php';
     exit();
 }
-
 
 function updatePseudo(){
     requireAuth();
@@ -22,8 +20,7 @@ function updatePseudo(){
             User::updatePseudo($db, $newPseudo, $_SESSION['userId']);
             flash("Pseudo changé");
     } else {
-        flash("Pseudo invalide", 'error');
-        
+        flash("Pseudo invalide", 'error'); 
     }
 
     header("Location: index.php?action=updateProfil");
@@ -31,7 +28,6 @@ function updatePseudo(){
 }
 
 function updatePassword(){
-    //TODO: changer mot de passe
     requireAuth();
     if(isset($_POST['newPassword']) && is_string($_POST['newPassword']) && sizeof($_POST['newPassword']) >= 4){
             $newPassword = trim($_POST['newPassword'] ?? '');
@@ -40,7 +36,6 @@ function updatePassword(){
             flash("Mot de passe changé");
     } else {
         flash("Mot de passe invalide", 'error');
-        
     }
 
     header("Location: index.php?action=updateProfil");
