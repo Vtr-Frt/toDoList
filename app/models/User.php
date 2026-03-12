@@ -25,7 +25,7 @@ class User {
     public function getProfilPictur(): string{return $this->profilPicture;}
 
     // Static //
-    public static function setProfilPicture(PDO $db,string $picture, int $userId): void{
+    public static function setProfilPicture(PDO $db,array $file, int $userId): void{
         /**
          * Set user a new profil picture
          * 
@@ -33,8 +33,30 @@ class User {
          * @param mixed $picture new profil picture
          * @param int $userId user ID
          */
-        $stmt = $db->prepare('UPDATE user SET profile_picture = ? WHERE id = ? ;');
-        $stmt->execute([$picture, $userId]);
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        if (!in_array($file['type'], $allowedTypes)) {
+            throw new Exception("Format non autorisé");
+        }
+
+        if ($file['size'] > 2 * 1024 * 1024) {
+            throw new Exception("Image trop lourde");
+        }
+
+        $stmt = $db->prepare('SELECT profile_picture FROM user WHERE id = ?');
+        $stmt->execute([$userId]);
+        $old = $stmt->fetchColumn();
+
+        if ($old && $old !== 'uploads/avatars/default.png' && file_exists($old)) {
+            unlink($old);
+        }
+
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $filename = 'uploads/avatars/user_' . $userId . '_' . uniqid() . '.' . $extension;
+
+        move_uploaded_file($file['tmp_name'], __DIR__ . '/../../public/' . $filename);
+
+        $stmt = $db->prepare('UPDATE user SET profile_picture = ? WHERE id = ?');
+        $stmt->execute([$filename, $userId]);
     }
 
     public static function findByEmail(PDO $db, string $email): ?User{

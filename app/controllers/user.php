@@ -42,8 +42,8 @@ function updatePassword(){
     exit();
 }
 
-function updatePP() {
-    //TODO: changer PP
+function updatePP(PDO $db, int $userId, array $file) {
+    
 }
 
 function joinGroup(){

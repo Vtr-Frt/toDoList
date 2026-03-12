@@ -15,7 +15,7 @@
 <form action="index.php?action=updatePP" method="POST">
     <div class="form-group">
         <label for="newPP">Changer photo de profile (300x300) :</label>
-        <input type="file" id="newPP" name="newPP">
+        <input type="file" id="newPP" name="newPP" accept="image/jpeg, image/png, image/webp">
         <button class="btn" type="submit" >Modifier</button>
     </div>
 </form>
