@@ -42,8 +42,33 @@ function updatePassword(){
     exit();
 }
 
-function updatePP(PDO $db, int $userId, array $file) {
-    
+function updatePP() {
+    $file = $_FILES['newPP'];
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+
+
+    $imageInfo = getimagesize($file['tmp_name']);
+    if ($imageInfo === false) {
+        flash("Le fichier n'est pas une image valide", 'error');
+        header('Location: index?action=updateProfil');
+    }
+
+    if (!in_array($file['type'], $allowedTypes)) {
+            flash("Format non autorisé", 'error');
+            header('Location: index?action=updateProfil');
+    }
+
+    if ($file['size'] > 2 * 1024 * 1024) {
+            flash("Image trop lourde", 'error');
+            header('Location: index?action=updateProfil');
+    }
+
+    $db = db();
+    User::setProfilPicture($db, $file,$_SESSION['userId']);
+    $_SESSION['profilPicture'] = 'uploads/avatars/user_' . $_SESSION['userId'] . '_';
+    flash("Image modifié");
+    header('Location: index?action=updateProfil');
 }
 
 function joinGroup(){
@@ -63,6 +88,10 @@ function joinGroup(){
 
     header("Location: index.php?action=updateProfil");
     exit();
+}
+
+function createGroup(){
+
 }
 
 function quitGroup(){

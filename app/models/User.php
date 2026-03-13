@@ -33,15 +33,6 @@ class User {
          * @param mixed $picture new profil picture
          * @param int $userId user ID
          */
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-        if (!in_array($file['type'], $allowedTypes)) {
-            throw new Exception("Format non autorisé");
-        }
-
-        if ($file['size'] > 2 * 1024 * 1024) {
-            throw new Exception("Image trop lourde");
-        }
-
         $stmt = $db->prepare('SELECT profile_picture FROM user WHERE id = ?');
         $stmt->execute([$userId]);
         $old = $stmt->fetchColumn();

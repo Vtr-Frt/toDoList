@@ -12,7 +12,7 @@
         <button class="btn" type="submit" >Modifier</button>
     </div>
 </form>
-<form action="index.php?action=updatePP" method="POST">
+<form action="index.php?action=updatePP" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <label for="newPP">Changer photo de profile (300x300) :</label>
         <input type="file" id="newPP" name="newPP" accept="image/jpeg, image/png, image/webp">
@@ -26,6 +26,12 @@
         <input type="text" id="joinGroup" name="joinGroup">
         <button class="btn" type="submit">Rejoindre</button>
     </div>
+</form>
+<form action="index.php?action=createGroup" method="POST">
+    <div class="form-group">
+            <label for="createGroup">Créer groupe :</label>
+            <button class="btn" type="submit">Créer</button>
+        </div>
 </form>
     <?php else: ?>
 <form action="index.php?action=quitGroup" method="POST">

@@ -41,6 +41,9 @@ if(isset($_GET['action']))
         case 'joinGroup':
             joinGroup();
             break;
+        case 'createGroup':
+            createGroup();
+            break;
         case 'quitGroup':
             quitGroup();
             break;
