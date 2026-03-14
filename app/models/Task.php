@@ -88,6 +88,19 @@ class Task {
         return $tasks;
     }
 
+    public static function taskGroup(PDO $db, int $groupId): array{
+        $stmt = $db->prepare('SELECT task.* FROM task 
+        JOIN user_task,  ON task.id = user_task.id_task
+        JOIN user ON user.id = user_task.user_id 
+        WHERE user.group_id = ? ;');
+        $stmt->execute([$groupId]);
+        $data = $stmt->fetchAll();
+        foreach($data as $task){
+            $tasks[] = new Task($task['id'], $task['nom'], $task['description'], $task['date_limite'], $task['status']);
+        }
+        return $tasks;
+    }
+
     public static function taskUserDone(PDO $db, int $userId): array{
         /**
          * Return all the task done by a user

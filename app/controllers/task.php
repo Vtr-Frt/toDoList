@@ -48,6 +48,8 @@ function showTasks(){
      */
     requireAuth();
     $db = db();
+    $idGroup = User::findByEmail($db, $_SESSION['email'])->getGroupId();
+    $groupTask = Task::taskGroup($db, $idGroup);
     $tasks = Task::taskUser($db, $_SESSION['userId']);
     require __DIR__ . '/../views/displayTasks.php';
     exit();
