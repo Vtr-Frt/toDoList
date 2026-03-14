@@ -104,6 +104,11 @@ class User {
         $stmt->execute([$groupId, $userId]);
     }
 
+    public static function leaveGroup(PDO $db, int $userId){
+        $stmt = $db->prepare('UPDATE user SET group_id = NULL WHERE id = ? ;');
+        $stmt->execute([$userId]);
+    }
+
     public static function checkGroup(PDO $db, int $groupId){
         $stmt = $db->prepare("SELECT * FROM groupe WHERE id = ? ; ");
         $stmt->execute([$groupId]);

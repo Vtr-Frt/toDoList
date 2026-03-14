@@ -19,31 +19,33 @@
         <button class="btn" type="submit" >Modifier</button>
     </div>
 </form>
-    <?php if(!isset($_SESSION['groupId'])): ?>
-<form action="index.php?action=joinGroup" method="POST">
-    <div class="form-group">
-        <label for="joinGroup">Rejoindre groupe :</label>
-        <input type="text" id="joinGroup" name="joinGroup">
-        <button class="btn" type="submit">Rejoindre</button>
-    </div>
-</form>
-<form action="index.php?action=createGroup" method="POST">
-    <div class="form-group">
-            <label for="createGroup">Créer groupe :</label>
-            <button class="btn" type="submit">Créer</button>
+<?php if(!isset($_SESSION['groupId'])): ?>
+    <form action="index.php?action=joinGroup" method="POST">
+        <div class="form-group">
+            <label for="joinGroup">Rejoindre groupe :</label>
+            <input type="text" id="joinGroup" name="joinGroup">
+            <button class="btn" type="submit">Rejoindre</button>
         </div>
-</form>
-    <?php else: ?>
-<form action="index.php?action=quitGroup" method="POST">
-    <div class="form-group">
-        <a class="btn">Quitter Groupe</a>
-    </div>
-</form>
-<form action="index.php?action=joinGroup" method="POST">
-    <div class="form-group">
-        <label for="changeGroup">Changer groupe :</label>
-        <input type="text" id="changeGroup" name="changeGroup">
-        <button class="btn" type="submit" >Changer</button>
-    </div>
-</form>
-    <?php endif; ?>
+    </form>
+    <form action="index.php?action=createGroup" method="POST">
+        <div class="form-group">
+                <label for="nameGroup">Nom du groupe :</label>
+                <input type="text" id="nameGroup" name="nameGroup" minlength=2>
+                <label for="createGroup">Créer groupe :</label>
+                <button class="btn" type="submit">Créer</button>
+            </div>
+    </form>
+<?php else: ?>
+    <form action="index.php?action=joinGroup" method="POST">
+        <div class="form-group">
+            <label for="changeGroup">Changer groupe :</label>
+            <input type="text" id="changeGroup" name="changeGroup">
+            <button class="btn" type="submit" >Changer</button>
+        </div>
+    </form>
+    <form action="index.php?action=quitGroup" method="POST">
+        <div class="form-group">
+            <button type="submit" class="btn">Quitter Groupe</a>
+        </div>
+    </form>
+<?php endif; ?>

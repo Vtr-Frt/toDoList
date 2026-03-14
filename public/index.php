@@ -6,6 +6,7 @@ require_once __DIR__ . '/../app/config.php';
 
 require __DIR__ . '/../app/db.php';
 require __DIR__ . '/../app/models/User.php';
+require __DIR__ . '/../app/models/Group.php';
 require __DIR__ . '/../app/models/Task.php';
 
 require __DIR__ . '/../app/controllers/auth.php';

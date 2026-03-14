@@ -43,6 +43,7 @@ function updatePassword(){
 }
 
 function updatePP() {
+    requireAuth();
     $file = $_FILES['newPP'];
     $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
 
@@ -72,12 +73,14 @@ function updatePP() {
 }
 
 function joinGroup(){
-    
-    if(isset($_POST['joinGroup']) && is_int($_POST['joinGroup'])){
+    requireAuth();
+    $groupId = (int)$_POST['joinGroup'];
+    if(isset($groupId) && is_int($groupId)){
         $db = db();
         if(User::checkGroup($db, $_POST['joinGroup'])){
-            $groupId = trim($_POST['joinGroup'] ?? '');
+            $groupId = (int)trim($_POST['joinGroup'] ?? '');
             User::joinGroup($db, $groupId, $_SESSION['userId']);
+            $_SESSION['groupId'] = $groupId;
             flash("Groupe rejoins");
         } else {
             flash("Groupe inexistant", 'error');
@@ -91,12 +94,25 @@ function joinGroup(){
 }
 
 function createGroup(){
-
+    requireAuth();
+    if(isset($_POST['nameGroup']) && is_string($_POST['nameGroup'])){
+        $db = db();
+        $groupName  = trim($_POST['nameGroup'] ?? '');
+        $_SESSION['groupId'] =  Group::newGroup($db, $groupName);
+        User::joinGroup($db, $_SESSION['groupId'], $_SESSION['userId']);
+        flash("Groupe Crée  ");
+    } else {
+        flash("Nom erroné", 'errror');
+    }
+    header("Location: index.php?action=updateProfil");
+    exit();
 }
 
 function quitGroup(){
+    requireAuth();
     $db = db();
     User::quitGroup($db, $_SESSION['userId']);
+    $_SESSION['groupId'] = null;
     flash("Groupe quitté");
     header("Location: index.php?action=updateProfil");
     exit();
