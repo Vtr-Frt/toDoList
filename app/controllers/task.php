@@ -10,7 +10,7 @@ function processAjoutTask(): void{
         $description = trim($_POST['description'] ?? '');
         if(isset($title, $description, $_POST['dateLimite']) && strtotime($_POST['dateLimite']) > strtotime(date('Y-m-d'))){
             $db = db();
-            Task::insertTask($db, $_SESSION['userId'], $title, $description, $_POST['dateLimite']);
+            Task::insertTask($db, $_SESSION['userId'], $title, $description, $_POST['dateLimite'], $_POST['isGroup']);
             flash("Tache ajoutée");
             header('Location: index.php?action=addTask');
             exit();
