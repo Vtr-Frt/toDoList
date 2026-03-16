@@ -8,9 +8,14 @@ function processAjoutTask(): void{
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $title = trim($_POST['title'] ?? '');
         $description = trim($_POST['description'] ?? '');
+        $isGroup = 0;
+        if(isset($_POST['isGroup']))
+            $isGroup = 1;
+        
         if(isset($title, $description, $_POST['dateLimite']) && strtotime($_POST['dateLimite']) > strtotime(date('Y-m-d'))){
             $db = db();
-            Task::insertTask($db, $_SESSION['userId'], $title, $description, $_POST['dateLimite'], $_POST['isGroup']);
+            
+            Task::insertTask($db, $_SESSION['userId'], $title, $description, $_POST['dateLimite'], $isGroup);
             flash("Tache ajoutée");
             header('Location: index.php?action=addTask');
             exit();

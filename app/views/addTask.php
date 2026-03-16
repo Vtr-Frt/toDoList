@@ -10,8 +10,8 @@
         <input type="text" id="description" name="description">
     </div>
     <div class="form-grouo">
-        <label for="isPublic">Partager au groupe</label>
-        <input type="checkbox" id="isPublic" name="isPublic">
+        <label for="isGroup">Partager au groupe</label>
+        <input type="checkbox" id="isGroup" name="isGroup">
     </div>
     <div class="form-group">
         <label for="dateLimite">Date Limite :</label>

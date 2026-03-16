@@ -128,7 +128,7 @@ class Task {
         return $tasks;
     }
 
-    public static function insertTask(PDO $db, int $userId, string $title, string $description, string $dateLimite, bool $isGroup): void{
+    public static function insertTask(PDO $db, int $userId, string $title, string $description, string $dateLimite, int $isGroup): void{
         /**
          * Insert a new task in the database
          * 
@@ -137,6 +137,7 @@ class Task {
          * @param string $title title of the task
          * @param string $description description of the task
          * @param string $dateLimite limit date of the task
+         * @param bool $isGroup True : task should be shqred with the group | False : task shouldn't be shared with the group
          */
         $stmt = $db->prepare('INSERT INTO task (nom, description, date_limite, group_shared) VALUES (?, ?, ?, ?)');
         $stmt->execute([$title, $description, $dateLimite, $isGroup]);
