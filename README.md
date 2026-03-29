@@ -82,9 +82,3 @@ toDoList/
 ## 📜 License
 
 This project is licensed under the MIT License — see the [LICENCE.md](LICENCE.md) file for details.
-
----
-
-## 🙏 Credits
-
-CSS inspired by [simple-shop-lab6](https://github.com/tiagovaz/simple-shop-lab6) by tiagovaz — MIT License.

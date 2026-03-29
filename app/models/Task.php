@@ -7,13 +7,15 @@ class Task {
     private string $dateLimite;
     private string $status;
     private ?string $dateDone;
+    private bool $isPublic;
 
-    public function __construct(int $id, string $title, string $description, string $dateLimite, string $status, ?string $dateDone=null){
+    public function __construct(int $id, string $title, string $description, string $dateLimite, string $status, bool $isPublic=false,?string $dateDone=null){
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->dateLimite = $dateLimite;
         $this->status = $status;
+        $this->isPublic = $isPublic;
         $this->dateDone = $dateDone;
     }
 
@@ -28,6 +30,7 @@ class Task {
     public function getDescription(): string{return $this->description;}
     public function getDateLimite(): string{return $this->dateLimite;}
     public function getStatus(): string{return $this->status;}
+    public function isPublic(): bool{return $this->isPublic;}
     public function getDateDone(): ?string{return $this->dateDone;}
 
     // Static //
@@ -88,6 +91,19 @@ class Task {
         return $tasks;
     }
 
+    public static function taskGroup(PDO $db, int $groupId): ?array{
+        $stmt = $db->prepare('SELECT task.* FROM task 
+        JOIN user_task ON task.id = user_task.id_task
+        JOIN user ON user.id = user_task.id_user 
+        WHERE user.group_id = ? AND task.status = "pending" AND task.group_shared = 1 ;');
+        $stmt->execute([$groupId]);
+        $data = $stmt->fetchAll();
+        foreach($data as $task){
+            $tasks[] = new Task($task['id'], $task['nom'], $task['description'], $task['date_limite'], $task['status']);
+        }
+        return $tasks ?? null;
+    }
+
     public static function taskUserDone(PDO $db, int $userId): array{
         /**
          * Return all the task done by a user
@@ -112,7 +128,7 @@ class Task {
         return $tasks;
     }
 
-    public static function insertTask(PDO $db, int $userId, string $title, string $description, string $dateLimite): void{
+    public static function insertTask(PDO $db, int $userId, string $title, string $description, string $dateLimite, int $isGroup): void{
         /**
          * Insert a new task in the database
          * 
@@ -121,9 +137,10 @@ class Task {
          * @param string $title title of the task
          * @param string $description description of the task
          * @param string $dateLimite limit date of the task
+         * @param bool $isGroup True : task should be shqred with the group | False : task shouldn't be shared with the group
          */
-        $stmt = $db->prepare('INSERT INTO task (nom, description, date_limite) VALUES (?, ?, ?)');
-        $stmt->execute([$title, $description, $dateLimite]);
+        $stmt = $db->prepare('INSERT INTO task (nom, description, date_limite, group_shared) VALUES (?, ?, ?, ?)');
+        $stmt->execute([$title, $description, $dateLimite, $isGroup]);
         $idTask = $db->lastInsertId();
         $stmt = $db->prepare('INSERT INTO user_task (id_task, id_user) VALUES (?, ?)');
         $stmt->execute([$idTask, $userId]);

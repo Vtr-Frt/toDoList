@@ -1,24 +1,55 @@
 <?php 
 class User {
     private ?int $id;
+    private ?int $groupeId;
     private string $email;
     private string $username;
     private string $password_hash;
+    private string $profilPicture;
     
-    public function __construct(?int $id, string $email, string $username ,string $password_hash){   
+    public function __construct(?int $id, string $email, string $username , string $password_hash, ?int $groupeId = null, ?string $profilPicture='uploads/avatars/default.png'){   
         $this->id = $id;
         $this->email = $email;
         $this->username = $username;
         $this->password_hash = $password_hash;
+        $this->groupeId = $groupeId;
+        $this->profilPicture = $profilPicture;
     }
 
     // Accesseur //
     public function getId(): ?int{return $this->id;}
+    public function getGroupId(): ?int{return $this->groupeId;}
     public function getEmail(): string{return $this->email;}
     public function getUsername(): string{return $this->username;}
     public function getPassword(): string{return $this->password_hash;}
+    public function getProfilPictur(): string{return $this->profilPicture;}
 
     // Static //
+    public static function setProfilPicture(PDO $db,array $file, int $userId): void{
+        /**
+         * Set user a new profil picture
+         * 
+         * @param PDO $db database used
+         * @param mixed $picture new profil picture
+         * @param int $userId user ID
+         */
+        $stmt = $db->prepare('SELECT profile_picture FROM user WHERE id = ?');
+        $stmt->execute([$userId]);
+        $old = $stmt->fetchColumn();
+
+        if ($old && $old !== 'uploads/avatars/default.png' && file_exists($old)) {
+            unlink($old);
+        }
+
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $filename = 'uploads/avatars/user_' . $userId . '_' . uniqid() . '.' . $extension;
+
+        move_uploaded_file($file['tmp_name'], __DIR__ . '/../../public/' . $filename);
+
+        $stmt = $db->prepare('UPDATE user SET profile_picture = ? WHERE id = ?');
+        $stmt->execute([$filename, $userId]);
+    }
+
     public static function findByEmail(PDO $db, string $email): ?User{
         /**
          * Search the informations of a user by his email.
@@ -33,7 +64,7 @@ class User {
 
         if (!$data) return null;
 
-        return new User($data['id'], $data['email'], $data['username'],$data['password']);
+        return new User($data['id'], $data['email'], $data['username'],$data['password'], $data['group_id'], $data['profile_picture']);
 
     }
     
@@ -58,6 +89,38 @@ class User {
         session_destroy();
     }
 
+    public static function updatePseudo(PDO $db, string $pseudo, int $userId){
+        $stmt = $db->prepare("UPDATE user SET username = ? WHERE id = ? ;");
+        $stmt->execute([$pseudo, $userId]);
+    }
+
+    public static function updatePassword(PDO $db, string $password, int $userId){
+        $stmt = $db->prepare("UPDATE user SET password = ? WHERE id = ? ;");
+        $stmt->execute([password_hash($password), $userId]);
+    }
+
+    public static function joinGroup(PDO $db, int $groupId ,int $userId){
+        $stmt = $db->prepare("UPDATE user SET group_id = ? WHERE id = ? ;");
+        $stmt->execute([$groupId, $userId]);
+    }
+
+    public static function leaveGroup(PDO $db, int $userId){
+        $stmt = $db->prepare('UPDATE user SET group_id = NULL WHERE id = ? ;');
+        $stmt->execute([$userId]);
+    }
+
+    public static function checkGroup(PDO $db, int $groupId){
+        $stmt = $db->prepare("SELECT * FROM groupe WHERE id = ? ; ");
+        $stmt->execute([$groupId]);
+        $data = $stmt->fetch();
+        return sizeof($data) > 0;
+    }
+
+    public static function quitGroup(PDO $db, int $userid){
+        $stmt = $db->prepare("UPDATE user SET group_id = NULL WHERE id = ? ;");
+        $stmt->execute([$userid]);
+    }
+
     // Instance //
     public function loginUser(): void{
         /**
@@ -67,5 +130,7 @@ class User {
         $_SESSION['userId'] = $this->getId();
         $_SESSION['email'] = $this->getEmail();
         $_SESSION['username'] = $this->getUsername();
+        $_SESSION['groupId'] = $this->getGroupId();
+        $_SESSION['profilPicture'] = $this->getProfilPictur();
     }
 }

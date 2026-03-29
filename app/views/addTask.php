@@ -9,6 +9,10 @@
         <label for="description">Description :</label>
         <input type="text" id="description" name="description">
     </div>
+    <div class="form-grouo">
+        <label for="isGroup">Partager au groupe</label>
+        <input type="checkbox" id="isGroup" name="isGroup">
+    </div>
     <div class="form-group">
         <label for="dateLimite">Date Limite :</label>
         <input type="date" id="dateLimite" name="dateLimite" min="<?= date('Y-m-d') ?>">

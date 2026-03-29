@@ -12,6 +12,7 @@
             <nav class="sidebar-nav">
                 <?php if(isset($_SESSION['email'])): ?>
                     <p>Bienvenue <?= htmlspecialchars($_SESSION['username']) ?></p>
+                    <a href="index.php?action=showProfil" class="nav-link">Profile</a>
                     <a href="index.php" class="nav-link">Home</a>
                     <a href="index.php?action=displayTask" class="nav-link">Taches Disponibles</a>
                     <a href="index.php?action=addTask" class="nav-link">Ajout tache</a>
